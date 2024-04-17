@@ -1,0 +1,201 @@
+{
+    "Title": "DungeonCrawl",
+    "Credits": "Created by Adam Smith and Max Kirkhope (amsmith@ucsc.edu).",
+    "InitialLocation": "Outside",
+    "Locations": {
+        "Outside": {
+            "Body": "The dungeon looms ahead of you...",
+            "Choices": [
+                {
+                    "Text": "Enter the Dungeon",
+                    "Target": "Throne Room"
+                }
+            ]
+        },
+        "Throne Room": {
+            "Body": "The Throne Room contains many rooms and hallways, where do you go?",
+            "Choices": [
+                {
+                    "Text": "Left Corridor",
+                    "Target": "Corridor L"
+                },
+
+                {
+                    "Text": "Right Corridor",
+                    "Target": "Corridor R"
+                },
+
+                {
+                    "Text": "Light Room",
+                    "Target": "Torch Room Final"
+                },
+
+                {
+                    "Text": "Dark Room",
+                    "Target": "Conclusion"
+                }
+                
+            ]
+        },
+        "Corridor L": {
+            "Body": "You walk through a dark corridor filled with cobwebs, at the end you see light.",
+            "Choices": [
+                {
+                    "Text": "Go back to the throne room",
+                    "Target": "Throne Room"
+                },
+                {
+                    "Text": "Go deeper into the corridor",
+                    "Target": "Prison"
+                }
+            ]
+        },
+        "Prison": {
+            "Body": "The prison room is dark but you can still go deeper",
+            "Choices": [
+                {
+                    "Text": "Go further",
+                    "Target": "Hallway L"
+                },
+                {
+                    "Text": "Go back",
+                    "Target": "Corridor L"
+                }
+            ]
+        },
+        "Hallway L": {
+            "Body": "You are now in the second corridor what do you do?", 
+            "Choices": [
+                {
+                    "Text": "Reach the room at the end",
+                    "Target": "Torch Room L"
+                },
+                {
+                    "Text": "Turn around to the throne room",
+                    "Target": "Prison"
+                }
+            ]
+        },
+        "Torch Room L": {
+            "Body": "You come across an unlit torch, what do you do?", 
+            "Choices": [
+                {
+                    "Text": "Retreat",
+                    "Target": "Hallway L"
+                }
+            ],
+                "interactions":[
+                    {
+                        "type": "Torch L",
+                        "description": "Light the Torch?",
+                        "states":{
+                            "unlitL":{"message":"There is an unlit torch"},
+                            "litL":{"message":"There is a lit torch"}
+                        },
+                        "initialState": "unlitL"
+                    }
+                ]
+        },
+        "Corridor R": {
+            "Body": "You enter a dark hallway?", 
+            "Choices": [
+                {
+                    "Text": "Go towards the kitchen",
+                    "Target": "Kitchen"
+                },
+                {
+                    "Text": "Retreat to the Throne Room",
+                    "Target": "Throne Room"
+                }
+            ]
+        },
+        "Kitchen": {
+            "Body": "You enter the kitchen, it's covered with pots and pans", 
+            "Choices": [
+                {
+                    "Text": "Go through the Kitchen",
+                    "Target": "Hallway R"
+                },
+                {
+                    "Text": "Retreat to the Throne Room",
+                    "Target": "Throne Room"
+                }
+            ]
+        },
+        "Hallway R": {
+            "Body": "You enter the cobweb covered hallway and glimpse something in the distance", 
+            "Choices": [
+                {
+                    "Text": "Go towards the object",
+                    "Target": "Torch Room R"
+                },
+                {
+                    "Text": "Go back to the Kitchen",
+                    "Target": "Kitchen"
+                }
+            ]
+        },
+        "Torch Room R": {
+            "Body": "You come across an unlit torch, what do you do?", 
+            "Choices": [
+                {
+                    "Text": "Retreat",
+                    "Target": "Hallway R"
+                }
+            ],
+                "interactions":[
+                    {
+                        "type": "Torch R",
+                        "description": "Light the Torch?",
+                        "states":{
+                            "unlitR":{"message":"There is an unlit torch"},
+                            "litR":{"message":"There is a lit torch"}
+                        },
+                        "initialState": "unlitR"
+                    }
+                ]
+        },
+        "Torch Room Final": {
+            "Body": "You enter a room where something feels missing", 
+            "Choices": [
+                {
+                    "Text": "Retreat",
+                    "Target": "Throne Room"
+                }
+            ],
+            "items":[
+                {
+                    "id": "key",
+                    "description": "a purple key with an eye in the middle",
+                    "action": "pickup",
+                    "use":{
+                        "target": "Conclusion",
+                        "unlocks": "Freedom"
+                    }
+                }
+            ]
+
+        },
+        "Conclusion": {
+            "Body": "You enter a room with a forboding door that is locked", 
+            "Choices": [
+                {
+                    "Text": "Go back",
+                    "Target": "Throne Room"
+                },
+                {
+                    "Text": "Use key",
+                    "Target": "EscapeRoute",
+                    "requiredItem": "key",
+                    "successText": "You use the key to unlock the door, it swings open",
+                    "failText": "The door is locked. You need to find the key"
+                }
+            ]
+    
+        },
+        "Freedom": {
+            "Body": "You have escaped the dungeon!"
+    
+        }
+    }
+}
